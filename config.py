@@ -4,8 +4,9 @@ from PyQt5.QtWidgets import *
 #config file for MemeZfinder
 windowWidth = 300
 windowHeight = 75
-memeFolderPath = "/media/randomguy90/cheny"
-#memeFolderPath = "C:\\Users\\Jakub\\Desktop\\śmieci\\fajne obrazki"
+#directory source 
+memeFolderPath = "/path/to/directory"
+
 higlightHeight = 300
 higlightWidth = 300
 
