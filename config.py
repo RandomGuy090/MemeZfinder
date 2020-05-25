@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import *
 windowWidth = 300
 windowHeight = 75
 #directory source 
-memeFolderPath = "/path/to/directory"
+memeFolderPath = "/media/randomguy90/cheny"
 
 higlightHeight = 300
 higlightWidth = 300
@@ -13,6 +13,7 @@ higlightWidth = 300
 higlightKey = Qt.Key_Alt
 enterKey = Qt.Key_Return
 escapeKey = Qt.Key_Escape
+showAllKey = Qt.Key_Control
 backgroundColor = "#777777"
 higlighted = "#aaaaaa"
 labelColor = "#555555"

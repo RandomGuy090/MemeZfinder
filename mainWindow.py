@@ -1,11 +1,15 @@
 from clipboard import *
 from config import *
+from highlightWindow import *
+from listDirectory import *
+from showAll import *
+
 
 from PyQt5.QtWidgets import *
 from PyQt5.Qt import Qt 
 import sys, os
 
-from PyQt5.QtGui import QIcon, QPixmap
+
 
 
 
@@ -24,8 +28,10 @@ class InputBox(QWidget):
 	Xcord = None
 
 	hightlight = None
+	showAll = None
 	osType = None
 
+	CTRL = showAllKey
 	KEY = higlightKey
 	ESCAPE = escapeKey
 	ENTER = enterKey
@@ -225,6 +231,11 @@ class InputBox(QWidget):
 
 			print(self.hightlight.closing())
 
+		elif e.key() == self.CTRL:
+
+			self.showAll = ShowAllMemes(self.Xcord, self.Ycord)
+
+
 			
 
 		
@@ -300,150 +311,3 @@ class InputBox(QWidget):
 			print(self.str3)
 			Clipboard(self.str3, self.osType)
 		self.close()
-
-class ListDir():
-	pwd = memeFolderPath
-
-	def __init__(self):
-		self.listDir()
-
-	def listDir(self):
-		imageFormats = ['JPEG', 'JPG', 'PNG', 'GIF', 'TIFF',
-			    'PSD', 'PDF', 'EPS', 'AI', 'INDD', 'RAW']
-		
-		try:
-			files = os.listdir(self.pwd+"/")
-		except:
-			print("nośnik z memami nie został zamonotwany")
-			os.popen("notify-send -t 9000 -i {0}/MemeZfinder/icon.png  'zamontuj nośnik z memami' '{0}' ".format(self.pwd))
-		x = 0
-		for elem in files:
-			i = 0
-			for char in elem:
-				if char == ".":
-					form = elem[i+1:]
-					if form.upper() not in imageFormats or form == "txt":
-						print("DEL: {}".format(files[x]))
-						del files[x]
-
-					print("^^: x({0})  {1} format: {2}".format(x, elem, form))
-				i = i+1
-			x = x+1
-		print(files)
-		return files
-
-
-class HighlightWin(QWidget):
-
-	height = higlightHeight
-	width = higlightWidth
-
-	pwd = memeFolderPath
-
-	Y = None
-	X = None
-	keyEvent = None
-	textboxContent = None
-	str1 = None
-	str2 = None
-	str3 = None
-	run = True
-	osType = None
-
-	KEY = higlightKey
-	ESCAPE = escapeKey
-	ENTER = enterKey
-
-
-
-	def __init__(self, X, Y, keyEvent, textboxContent, str1, str2, str3, osType):
-		super().__init__()
-		self.osType = osType
-		self.str1 = str1
-		self.str2 = str2
-		self.str3 = str3
-		self.X = X
-		self.Y = Y
-		self.keyEvent = keyEvent 
-		self.textboxContent = textboxContent
-		
-		self.window(X, Y)
-
-		run = self.setPic()
-		if run == None:
-			self.close()
-		else:
-			self.show()
-	def window(self, X, Y):
-		self.move(X, Y)
-		self.resize(self.height, self.width)
-		self.setWindowFlags(Qt.FramelessWindowHint)
-		self.setAttribute(Qt.WA_TranslucentBackground)
-	
-
-	def keyPressEvent(self, e):
-		if e.key() == self.ENTER:
-			self.keyEnter()
-			self.close()
-			sys.exit()
-
-		elif e.key() == Qt.Key_Left or e.key() == self.KEY or e.key() == self.ESCAPE:
-			self.close()
-
-		print("{}".format(e))
-
-	def keyEnter(self):
-		if self.keyEvent == 1:
-			print(self.textboxContent)
-			Clipboard(self.textboxContent, self.osType)
-		elif self.keyEvent == 2:
-			print(self.str1)
-			Clipboard(self.str1, self.osType)
-		elif self.keyEvent == 3:
-			print(self.str2)
-			Clipboard(self.str2, self.osType)
-		elif self.keyEvent == 4:
-			print(self.str3)
-			Clipboard(self.str3, self.osType)
-		self.close()
-	
-	
-
-	def addPic(self):
-		if self.keyEvent == 1:
-			path = self.pwd + "/" + self.textboxContent
-		elif self.keyEvent == 2:
-			path = self.pwd + "/" + self.str1
-		elif self.keyEvent == 3:
-			path = self.pwd + "/" +self.str2 
-		elif self.keyEvent == 4:
-			path = self.pwd + "/" +self.str3
-
-		if self.textboxContent == "" and self.str1 == "":
-			print("self.textboxContent: ''")
-			self.close()
-			return None
-		return path
-
-	def setPic(self):
-		
-		pic = self.addPic()
-		if pic == None:
-			self.close()
-			print("CLOSE")
-			return None
-		label = QLabel(self)
-		pixmap = QPixmap(pic)
-		
-		pixmap = pixmap.scaled(self.height, self.width, Qt.KeepAspectRatio, Qt.FastTransformation)
-		h = pixmap.height()
-		w = pixmap.width()
-		self.resize(w, h)
-		label.setPixmap(pixmap)
-		return True
-			
-	def closing(self):
-		if self.run == True:
-			return False
-		elif self.run == False:
-			return True

@@ -14,11 +14,8 @@ elif "windows" in osType.lower():
 
 try:
 	from PyQt5.Qt import Qt 
-	print("pyqt5")
 	from PyQt5.QtWidgets import *
-	print("pyqt5 QtWidgets")
 	import pyautogui
-	print("pyautogui") 
 except:
 	print(os.popen("pip3 install PyQt5").read())
 	print(os.popen("pip3 install pyautogui").read())
@@ -34,8 +31,8 @@ if osType == "windows":
 		print(os.popen("pip3 install pywin32").read())
 
 from coordFunc import *
-from windowClasses import * 
-
+#from windowClasses import * 
+from mainWindow import *
 
 
 
