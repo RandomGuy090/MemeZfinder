@@ -14,6 +14,6 @@
     memeFolderPath = "\\path\\to\\file" (Windows)
    ```
 ### run command:
-	```
-  	python3 /path/to/file/MemeZFinder.py
-        ```
+   ```
+     python3 /path/to/file/MemeZFinder.py
+   ```
