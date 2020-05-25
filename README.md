@@ -2,7 +2,7 @@
 ## requirements:
   -xclip (on linux)\
   -python3\
-  -python3 libraries (shoud inststall automatically):\
+  -python3 libraries (should inststall automatically):\
     -PyQt5\
     -pyautogui
 
