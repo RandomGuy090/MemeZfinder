@@ -1,7 +1,7 @@
 from clipboard import *
 from config import *
 from listDirectory import *
-
+from showAll import *
 
 from PyQt5.QtWidgets import *
 from PyQt5.Qt import Qt 
@@ -82,9 +82,6 @@ class HighlightWin(QWidget):
 		{Qt.Key_Left, self.KEY, self.ESCAPE}:
 			self.close()
 
-		elif e.key() == self.CTRL:
-			self.showAll = ShowAllMemes(self.Xcord, self,Ycord)
-			self.showAll.close()
 		
 
 		print("{}".format(e))
