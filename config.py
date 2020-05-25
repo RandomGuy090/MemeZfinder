@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import *
 windowWidth = 300
 windowHeight = 75
 #directory source 
-memeFolderPath = "/media/randomguy90/cheny"
+memeFolderPath = "/path/to/file"
 
 higlightHeight = 300
 higlightWidth = 300
