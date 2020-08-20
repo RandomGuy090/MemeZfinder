@@ -51,10 +51,10 @@ class Clipboard():
 
 		if self.format.upper() in self.imageFormats:
 			print("IMAGE TYPE")
-			os.popen("xclip -selection clipboard -t image/png -i {}".format(self.path))
+			os.popen("xclip -selection clipboard -t image/png -i '{}'".format(self.path))
 		elif self.format.upper() in self.vidFormats:
 			print("VIDEO TYPE")
-			os.popen("xclip -selection clipboard -t video/mp4 -i {}".format(self.path))	
+			os.popen("xclip -selection clipboard -t video/mp4 -i '{}'".format(self.path))	
 		
 		
 	
