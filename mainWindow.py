@@ -65,13 +65,14 @@ class InputBox(QWidget):
 			
 	def grid(self):
 		self.grid = QGridLayout()
-		self.grid.addWidget(self.label(), 1, 1)
-		self.grid.addWidget(self.labelLeft(), 1,1)
-		self.grid.addWidget(self.inputField(), 2, 1)
-		self.grid.addWidget(self.label2(), 3, 1)
-		self.grid.addWidget(self.label3(), 4, 1)
-		self.grid.addWidget(self.label4(), 5, 1)
-		self.grid.addWidget(self.button(), 6, 1)
+		grid = self.grid
+		grid.addWidget(self.label(), 1, 1)
+		grid.addWidget(self.labelLeft(), 1,1)
+		grid.addWidget(self.inputField(), 2, 1)
+		grid.addWidget(self.label2(), 3, 1)
+		grid.addWidget(self.label3(), 4, 1)
+		grid.addWidget(self.label4(), 5, 1)
+		grid.addWidget(self.button(), 6, 1)
 
 	def window(self, Xcord, Ycord):
 		self.move(Xcord, Ycord)
@@ -93,13 +94,27 @@ class InputBox(QWidget):
 		#label.setText(content)
 		label.setStyleSheet("QLabel{background-color: "+ self.LABELCOLOR+";}")
 
+	def get_data(model):
+		model.setStringList(["completion", "data", "goes", "here"])
+ 
+
 	def inputField(self):
 		self.inputBox = QLineEdit(self)
-		self.inputBox.move(0, 5)
-		self.inputBox.resize(self.widthWindow, 25)
-		self.inputBox.setStyleSheet("QLineEdit{background-color: "+self.INPUTCOLOR+";}")
+		inputBox = self.inputBox
+		inputBox.move(0, 5)
+		inputBox.resize(self.widthWindow, 25)
+		inputBox.setPlaceholderText("input meme name")
+		#self.inputBox.setPlaceholderText(self.str1)
+		"""completer = QCompleter
+								inputBox.setCompleter(completer)
+						
+								model = QStringListModel()
+								completer.setModel(model)
+								get_data(model)"""
+
+		inputBox.setStyleSheet("QLineEdit{background-color: "+self.INPUTCOLOR+";}")
 		
-		self.inputBox.textChanged.connect(self.changed)
+		inputBox.textChanged.connect(self.changed)
 
 	def changed(self):
 		self.textboxContent = self.inputBox.text()
@@ -112,31 +127,35 @@ class InputBox(QWidget):
 
 	def button(self):
 		self.arrowLabel = QPushButton(self)
-		self.arrowLabel.move(self.widthWindow-25 , 0)
-		self.arrowLabel.resize(0, 0)
-		self.arrowLabel.setText("\u2193")
-		self.arrowLabel.clicked.connect(self.roll)
+		arrowLabel = self.arrowLabel
+		arrowLabel.move(self.widthWindow-25 , 0)
+		arrowLabel.resize(0, 0)
+		arrowLabel.setText("\u2193")
+		arrowLabel.clicked.connect(self.roll)
 		
 	def roll(self):
 		self.resize(self.widthWindow, 90)
 
 	def label2(self):
 		self.label2 = QLabel(self)
-		self.label2.move(5, 30)
-		self.label2.resize(self.widthWindow, 20)
-		self.label2.setText(" ")
+		label2 = self.label2
+		label2.move(5, 30)
+		label2.resize(self.widthWindow, 20)
+		label2.setText(" ")
 
 	def label3(self):
 		self.label3 = QLabel(self)
-		self.label3.move(5, 50)
-		self.label3.resize(self.widthWindow, 20)
-		self.label3.setText(" ")
+		label3 = self.label3
+		label3.move(5, 50)
+		label3.resize(self.widthWindow, 20)
+		label3.setText(" ")
 
 	def label4(self):
 		self.label4 = QLabel(self)
-		self.label4.move(5, 70)
-		self.label4.resize(self.widthWindow, 20)
-		self.label4.setText(" ")
+		label4 = self.label4
+		label4.move(5, 70)
+		label4.resize(self.widthWindow, 20)
+		label4.setText(" ")
 
 	def list(self):
 		i=0
@@ -233,7 +252,7 @@ class InputBox(QWidget):
 
 		elif e.key() == self.CTRL:
 
-			self.showAll = ShowAllMemes(self.Xcord, self.Ycord)
+			self.showAll = ShowAllMemes(self.Xcord, self.Ycord, self.osType)
 
 
 			
