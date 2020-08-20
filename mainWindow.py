@@ -104,13 +104,7 @@ class InputBox(QWidget):
 		inputBox.move(0, 5)
 		inputBox.resize(self.widthWindow, 25)
 		inputBox.setPlaceholderText("input meme name")
-		#self.inputBox.setPlaceholderText(self.str1)
-		"""completer = QCompleter
-								inputBox.setCompleter(completer)
-						
-								model = QStringListModel()
-								completer.setModel(model)
-								get_data(model)"""
+		
 
 		inputBox.setStyleSheet("QLineEdit{background-color: "+self.INPUTCOLOR+";}")
 		
