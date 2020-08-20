@@ -2,8 +2,10 @@ from clipboard import *
 from config import *
 from listDirectory import *
 
+from functools import partial
 from PyQt5.QtWidgets import *
-from PyQt5.Qt import Qt 
+from PyQt5.Qt import Qt
+from PyQt5 import QtCore 
 import sys, os
 
 
@@ -37,20 +39,19 @@ class ShowAllMemes(QMainWindow):
 	HIGLIGHTED = higlighted
 	LABELCOLOR = labelColor
 	INPUTCOLOR = inputFieldColor
+	OS = None
 
-	def __init__(self, Xcord, Ycord):
+	def __init__(self, Xcord, Ycord, os):
 		super().__init__()
 
 		self.Xcord = Xcord
 		self.Ycord = Ycord
-
-   
+		self.OS = os
 		self.widget = QWidget()   
-    
-		
 		self.window(Xcord, Ycord)
 
 		self.show()
+
 
 
 	def window(self, Xcord, Ycord):
@@ -74,10 +75,11 @@ class ShowAllMemes(QMainWindow):
 
 	def scroll(self):
 		self.scroll = QScrollArea()
-		self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)	
-		self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-		self.scroll.setWidgetResizable(False)
-		self.scroll.setWidget(self.widget)
+		scroll = self.scroll
+		scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)	
+		scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+		scroll.setWidgetResizable(False)
+		scroll.setWidget(self.widget)
 
 		self.setCentralWidget(self.scroll)
 
@@ -93,7 +95,11 @@ class ShowAllMemes(QMainWindow):
 			memeBut = QPushButton(self)
 			memeBut.setFixedWidth(280)
 			memeBut.setText(meme)
-			memeBut.clicked.connect(self.memeClicked)
+			memeBut.setStyleSheet(f"background-color : #777777;") 
+
+
+			memeBut.clicked.connect(partial(self.memeClicked, meme))
+
 			memeBut.setFlat(True)
 			self.vbox.addWidget(memeBut)
 		
@@ -103,10 +109,17 @@ class ShowAllMemes(QMainWindow):
 	
 
 
+
+
+
 	def keyPressEvent(self, e):
 		if e.key() == self.ESCAPE or e.key() == self.CTRL:
 			self.close()
 
 						
-	def memeClicked(self):
-		print("meme")
+	def memeClicked(self, lol):
+		print(lol)
+		Clipboard(lol, self.OS)
+		self.close()
+		sys.exit()
+
